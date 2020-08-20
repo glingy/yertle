@@ -271,4 +271,4 @@ newMember = (member) ->
         .then (channel) -> channel.send "Welcome #{member.user.username}!\nYour owner can claim you in the <#745737786233061437> channel!"
 
 module.exports =
-  newMember
+  newMember: newMember
