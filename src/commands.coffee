@@ -34,7 +34,6 @@ Commands =
           msg.channel.send "I will echo #{user[0]} now. They must press #{prompt}q to stop."
           Handlers.set user[1].tag, 'echo'
       else
-        console.log msg.channel.members
         msg.channel.send "I will echo you now. Type #{prompt}q to stop."
         Handlers.set msg.author.tag, 'echo'
     info: "Echoes someone until they ask to stop"
@@ -76,6 +75,8 @@ Commands =
     info: "About Yertle!"
   who:
     handle: (args, msg, silent) ->
+      if msg.channel.type == "dm"
+        return [msg.author.username, msg.author]
       if !args[1]
         msg.channel.send 'Please specify a name'
         return
@@ -114,6 +115,8 @@ Commands =
     help: 'help [<command>] [-beta]'
   src:
     handle: (args, msg) ->
+      msg.channel.send "Src is broken right now"
+      return
       zip = spawn('zip', ['-ru', 'src.zip', 'src'], { stdio: [null, process.stdout, process.stderr]})
       zip.on 'exit', (code) ->
         if code == 0 || code == 12

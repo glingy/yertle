@@ -229,8 +229,9 @@ Handlers.register 'botville-confirm', (msg, params) ->
     
 Commands.__add 'botville',
   handle: (args, msg) ->
-    if msg.channel.guild.id != Botville_data.ids.guild
+    if !msg.channel.guild || msg.channel.guild.id != Botville_data.ids.guild
       msg.channel.send "Sorry, that command is unavailable on this server."
+      return
     if Botville[args[1]]
       Botville[args[1]] args, msg
     else

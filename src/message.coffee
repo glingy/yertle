@@ -16,7 +16,7 @@ module.exports =
       #if msg.author.tag == 'glingy#9525'#'Simbot#7308'
       #  msg.edit '🐢 ' + msg.content
       return
-    if msg.channel.guild.id == Botville_data.ids.guild
+    if msg.channel.guild &&msg.channel.guild.id == Botville_data.ids.guild
       if msg.channel.id != Botville_data.ids.botmanagement && 
           msg.channel.id != Botville_data.ids.yertle && 
           msg.channel.id != Botville_data.ids.testing
