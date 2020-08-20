@@ -5,6 +5,8 @@ server = http.createServer {}, (req, res) ->
 
 server.listen process.env.PORT || 8080
 
+if process.env.URL then http = require 'https'
+
 interval = 0
 server.on 'listening', ->
   console.log "Ping server listening!"
@@ -17,5 +19,6 @@ server.on 'listening', ->
         .on 'error', (e) ->
           console.log e
     catch e
+      console.log e
       console.log "ERROR! PING ERROR!"
   , 5000
