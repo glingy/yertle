@@ -15,7 +15,7 @@ Client.on 'message', (msg) ->
   Message.handle msg, Client
 
 Client.on 'guildMemberAdd', (member) ->
-  Botville.newMember memb
+  Botville.newMember member
 
 Client.on 'messageDelete', (msg) ->
   if msg.author == Client.user
