@@ -5,6 +5,7 @@ Message = require './message'
 Botville = require './botville'
 require './map-manager'
 require('dotenv').config()
+require './keepalive'
 
 Client.on 'ready', (msg) ->
   console.log "Hello World! Logged in as #{Client.user.tag}!"
