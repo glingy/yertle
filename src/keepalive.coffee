@@ -21,4 +21,4 @@ server.on 'listening', ->
     catch e
       console.log e
       console.log "ERROR! PING ERROR!"
-  , 5000
+  , 20000
