@@ -2,21 +2,25 @@ Commands = require './commands'
 Handlers = require './handlers'
 {parseArgs, prompt} = require './util'
 History = require './history'
-Client = require './client'
+Botville_data = require './botville_data'
 
 module.exports =
-  handle: (msg, preventRecursion) ->
-    if msg.author == Client.user
+  handle: (msg, client, preventRecursion) ->
+    if msg.author == client.user
       return
-    if msg.author.tag == 'glingy#9525'#'Simbot#7308'
-      msg.delete()
-      (msg.channel.send ':turtle: ' + msg.content).catch (e) -> console.log e
+    #if msg.author.tag == 'glingy#9525'#'Simbot#7308'
+    #  msg.delete()
+      #(msg.channel.send ':turtle: ' + msg.content).catch (e) -> console.log e
 
     if msg.author.bot
       #if msg.author.tag == 'glingy#9525'#'Simbot#7308'
       #  msg.edit '🐢 ' + msg.content
       return
-
+    if msg.channel.guild.id == Botville_data.ids.guild
+      if msg.channel.id != Botville_data.ids.botmanagement && 
+          msg.channel.id != Botville_data.ids.yertle && 
+          msg.channel.id != Botville_data.ids.testing
+        return
 
     if msg.content == '.' && !preventRecursion
       History.handle msg

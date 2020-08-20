@@ -79,7 +79,8 @@ Commands =
       if !args[1]
         msg.channel.send 'Please specify a name'
         return
-      user = getUser(args[1], msg)
+      user = getUser (args.slice(1).join " "), msg
+      
       if !(user[0] instanceof Array)
         console.log silent
         if (!silent) then msg.channel.send "#{user[0]} is #{user[1].tag}."
@@ -109,7 +110,7 @@ Commands =
           hlp += "#{(command + ' ').padEnd 10, ' '} #{value.info || 'Mysterious command'}\n"
 
         msg.channel.send hlp + '\n.          (without prompt) repeat last message```'
-    info: 'Prints this help'
+    info: 'Prints help for a command'
     help: 'help [<command>] [-beta]'
   src:
     handle: (args, msg) ->

@@ -53,7 +53,9 @@ Maps =
       str += "\n#{map} by #{Storage.data.maps[map].owner}"
     , '')
     console.log maps
-    msg.channel.send "```#{maps}```"
+    if maps.length == 0
+      msg.channel.send "Sorry, I don't have any maps available right now."
+    else msg.channel.send "```#{maps}```"
   restart: (args, msg) ->
     if !args[2]
       msg.channel.send "I don't know which map to play."
@@ -74,7 +76,3 @@ map read <name>                  Read the source of a map
 map play <name>                  Play a map
 map restart <name>               Restart a map
 """
-
-
-
-#module.exports =

@@ -10,9 +10,19 @@ module.exports = Util =
     return args
   prompt: '$'
   getUser: (str, msg) ->
-    Util.choose str, msg.channel.members.map (member) ->
-      #console.log member.displayName.replace(/[^\w\s]/gi, '*')
-      [member.displayName.replace(/[^\w\s/()]/gi, '*'), member.user]
+    Util.getFilteredUser str, msg, -> true
+  getFilteredUser: (str, msg, filter) ->
+    mentionMatch = str.match /<@!?([0-9]+)>/
+    if mentionMatch && mentionMatch[1] && msg.channel.members.has mentionMatch[1]
+      member = msg.channel.members.get mentionMatch[1]
+      if filter member
+        return [member.displayName.replace(/[^\w\s/()]/gi, '*'), member.user]
+      else
+        return
+    users = msg.channel.members.filter filter
+      .map (member) ->
+        [member.displayName.replace(/[^\w\s/()]/gi, '*'), member.user]
+    Util.choose str, users
   levDist: (s1, s2) ->
     s1 = s1.toLowerCase()
     s2 = s2.toLowerCase()
@@ -38,7 +48,11 @@ module.exports = Util =
           matrix[i][j] = Math.min(Math.min(matrix[i-1][j], matrix[i-1][j-1]), matrix[i][j-1]) + 1
     #console.log matrix, s1l, s2l
     return matrix[s1l-1][s2l-1]
-  choose: (str, array) ->
+  choose: (str, array, channel) ->
+    if array.length == 0
+      return
+    if array.length == 1
+      return array[0]
     #console.log array.map (item) -> item[0]
     rank = array.map (item) ->
       return [(Util.levDist str, item[0]), item[0], item[1]]
