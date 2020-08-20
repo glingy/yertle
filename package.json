@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "nodemon --watch src src/index.coffee"
+    "start": "coffee src/main.coffee"
   },
   "dependencies": {
     "coffeescript": "^2.5.1",
