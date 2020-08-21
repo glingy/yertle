@@ -113,18 +113,6 @@ Commands =
         msg.channel.send hlp + '\n.          (without prompt) repeat last message```'
     info: 'Prints help for a command'
     help: 'help [<command>] [-beta]'
-  src:
-    handle: (args, msg) ->
-      msg.channel.send "Src is broken right now"
-      return
-      zip = spawn('zip', ['-ru', 'src.zip', 'src'], { stdio: [null, process.stdout, process.stderr]})
-      zip.on 'exit', (code) ->
-        if code == 0 || code == 12
-          msg.channel.send 'Here is my current source: ',
-            files: ['src.zip']
-        else
-          msg.channel.send "Error zipping source: Code #{code}"
-    info: 'Shares a zip file of the source code'
   q:
     handle: (args, msg) ->
       msg.channel.send 'You are currently in command mode.'

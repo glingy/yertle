@@ -2,10 +2,9 @@ Client = require './client'
 Store = require './storage'
 History = require './history'
 Message = require './message'
-Botville = require './botville'
-require './map-manager'
+{Botville} = require './commands/index'
 require('dotenv').config()
-require './keepalive'
+#require './keepalive'
 
 Client.on 'ready', (msg) ->
   console.log "Hello World! Logged in as #{Client.user.tag}!"
@@ -14,8 +13,9 @@ Client.on 'message', (msg) ->
   if msg.channel.name == 'yertle-log' then return
   Message.handle msg, Client
 
-Client.on 'guildMemberAdd', (member) ->
-  Botville.newMember member
+if !process.env.DEV
+  Client.on 'guildMemberAdd', (member) ->
+    Botville.newMember member
 
 Client.on 'messageDelete', (msg) ->
   if msg.author == Client.user

@@ -2,7 +2,7 @@ Commands = require './commands'
 Handlers = require './handlers'
 {parseArgs, prompt} = require './util'
 History = require './history'
-Botville_data = require './botville_data'
+Botville_data = require './commands/botville_data'
 
 module.exports =
   handle: (msg, client, preventRecursion) ->
@@ -16,7 +16,7 @@ module.exports =
       #if msg.author.tag == 'glingy#9525'#'Simbot#7308'
       #  msg.edit '🐢 ' + msg.content
       return
-    if msg.channel.guild &&msg.channel.guild.id == Botville_data.ids.guild
+    if !process.env.DEV && msg.channel.guild && msg.channel.guild.id == Botville_data.ids.guild
       if msg.channel.id != Botville_data.ids.botmanagement && 
           msg.channel.id != Botville_data.ids.yertle && 
           msg.channel.id != Botville_data.ids.testing
